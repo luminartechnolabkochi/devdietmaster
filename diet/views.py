@@ -33,7 +33,11 @@ class DietPlanView(View):
         tdee=daily_calorie_consumption(gender=gender,weight=weight_in_kg,height=height_in_cm,age=age,activitylevel=activitylevel)
 
         print("TDEE",tdee)
-        return render(request,"profile.html")
+
+        context={
+            "tdee":tdee
+        }
+        return render(request,"profile.html",context)
 
 
 def daily_calorie_consumption(gender="male",weight=None,height=None,age=None,activitylevel=1.2):
