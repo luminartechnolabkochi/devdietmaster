@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<form action="" method="post">
+
+    {%csrf_token%}
+
+    <div>
+        <label for="">Enter your height</label>
+        <input name="height" type="number" placeholder="enter height in cm">
+    </div>
+
+    <div>
+        <label for="">Enter your Weight</label>
+        <input name ="weight" type="number" placeholder="enter Weight in kg">
+    </div>
+
+    <div>
+        <label for="">Select gender</label>
+      <select name="gender" id="">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
+
+    <div>
+        <label for="">Enter your Age</label>
+        <input name ="age" type="number" placeholder="enter Age">
+    </div>
+
+    <div>
+        <label for="">Select your activity level</label>
+
+        <select name="activitylevel" id="">
+            <option value="1.2">sedentary</option>
+            <option value="1.375">Lightly Active</option>
+            <option value="1.55">Moderately  Active</option>
+            <option value="1.725">Very Active </option>
+            <option value="1.9">Extra Active </option>
+        </select>
+    </div>
+
+     <div>
+        <label for="">GoalWeight</label>
+        <input name ="target" type="number" placeholder="enter goal weight">
+    </div>
+
+     <div>
+        <label for="">Duration</label>
+        <input name ="duration" type="number" placeholder="enter diuration in months">
+    </div>
+
+    <div>
+        <button type="submit">Find</button>
+    </div>
+
+    
+
+
+
+</form>
+
+</body>
+</html>
