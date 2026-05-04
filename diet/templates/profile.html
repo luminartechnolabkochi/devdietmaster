@@ -78,12 +78,8 @@
             margin-bottom: 0.3rem;
         }
 
-        /* Hide all radio inputs */
-        .hidden-radio {
-            display: none;
-        }
+        .hidden-radio { display: none; }
 
-        /* Gender labels as buttons */
         .gender-label {
             background: #fff;
             border: 1.5px solid var(--card-border);
@@ -98,19 +94,9 @@
             display: inline-block;
         }
 
-        .gender-label:hover {
-            border-color: var(--green-primary);
-            color: var(--green-primary);
-            background: var(--green-light);
-        }
+        .gender-label:hover { border-color: var(--green-primary); color: var(--green-primary); background: var(--green-light); }
+        .hidden-radio:checked + .gender-label { border-color: var(--green-primary); color: var(--green-primary); background: var(--green-light); }
 
-        .hidden-radio:checked + .gender-label {
-            border-color: var(--green-primary);
-            color: var(--green-primary);
-            background: var(--green-light);
-        }
-
-        /* Number inputs */
         .num-input-wrapper {
             display: flex;
             align-items: center;
@@ -132,18 +118,10 @@
             transition: border-color 0.2s, color 0.2s;
         }
 
-        .num-input:focus {
-            border-bottom-color: var(--green-primary);
-            color: var(--text-dark);
-        }
+        .num-input:focus { border-bottom-color: var(--green-primary); color: var(--text-dark); }
 
-        .unit-label {
-            font-size: 0.9rem;
-            color: #aaa;
-            margin-left: 2px;
-        }
+        .unit-label { font-size: 0.9rem; color: #aaa; margin-left: 2px; }
 
-        /* Unit toggle labels */
         .unit-toggle-label {
             border: 1.5px solid #d0f0e0;
             background: #eafaf2;
@@ -157,19 +135,9 @@
             display: inline-block;
         }
 
-        .unit-toggle-label:hover {
-            background: var(--green-primary);
-            color: #fff;
-            border-color: var(--green-primary);
-        }
+        .unit-toggle-label:hover { background: var(--green-primary); color: #fff; border-color: var(--green-primary); }
+        .hidden-radio:checked + .unit-toggle-label { background: var(--green-primary); color: #fff; border-color: var(--green-primary); }
 
-        .hidden-radio:checked + .unit-toggle-label {
-            background: var(--green-primary);
-            color: #fff;
-            border-color: var(--green-primary);
-        }
-
-        /* Activity labels */
         .activity-label {
             display: flex;
             flex-direction: column;
@@ -184,28 +152,12 @@
             width: 100%;
         }
 
-        .activity-label:hover {
-            border-color: var(--green-primary);
-            background: var(--green-light);
-        }
+        .activity-label:hover { border-color: var(--green-primary); background: var(--green-light); }
+        .hidden-radio:checked + .activity-label { border-color: var(--green-primary); background: var(--green-light); }
 
-        .hidden-radio:checked + .activity-label {
-            border-color: var(--green-primary);
-            background: var(--green-light);
-        }
+        .activity-label .act-label-text { font-size: 0.78rem; color: var(--green-primary); font-weight: 600; }
+        .activity-icon { font-size: 2rem; line-height: 1; }
 
-        .activity-label .act-label-text {
-            font-size: 0.78rem;
-            color: var(--green-primary);
-            font-weight: 600;
-        }
-
-        .activity-icon {
-            font-size: 2rem;
-            line-height: 1;
-        }
-
-        /* Submit button */
         .calc-btn {
             background: var(--green-primary);
             color: #fff;
@@ -220,15 +172,67 @@
             letter-spacing: 0.3px;
         }
 
-        .calc-btn:hover {
-            background: var(--green-dark);
-        }
+        .calc-btn:hover { background: var(--green-dark); }
 
         .extra-field-label {
             font-size: 0.88rem;
             color: var(--text-muted);
             margin-bottom: 0.25rem;
             display: block;
+        }
+
+        /* Result widget */
+        .result-section {
+            display: none;
+            margin-top: 2.5rem;
+        }
+
+        .result-section.visible {
+            display: block;
+        }
+
+        .result-card {
+            background: #fff;
+            border: 1.5px solid var(--card-border);
+            border-radius: 14px;
+            padding: 2rem 1.5rem 1.5rem;
+            position: relative;
+            margin-top: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .result-heading {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+
+        .metric-card {
+            background: #f0faf5;
+            border-radius: 10px;
+            padding: 1.1rem 1rem;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--green-dark);
+            line-height: 1;
+        }
+
+        .metric-unit {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -387,9 +391,31 @@
 
     </form>
 
-    <div>
-        {{tdee}}
+    <!-- Result Widget (shown after Django renders context variables) -->
+    {% if tdee %}
+    <div class="result-section visible">
+        <div class="result-card">
+            <div class="result-heading">Your Daily Calorie Result</div>
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-4 col-sm-6">
+                    <div class="metric-card">
+                        <div class="metric-label">Total daily calories</div>
+                        <div class="metric-value">{{ tdee }}</div>
+                        <div class="metric-unit">kcal / day</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="metric-card">
+                        <div class="metric-label">BMR (base rate)</div>
+                        <div class="metric-value">{{ bmr }}</div>
+                        <div class="metric-unit">kcal / day</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    {% endif %}
+
 </div>
 </body>
 </html>
