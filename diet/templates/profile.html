@@ -3,68 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Daily Calorie Intake Calculator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --green-primary: #2dc76d;
+            --green-dark: #23a85a;
+            --green-light: #e8f9f0;
+            --card-border: #e0e0e0;
+            --text-dark: #222;
+            --text-muted: #888;
+        }
+
+        body {
+            background: #f7f8fa;
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+        }
+
+        .page-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .question-card {
+            background: #fff;
+            border: 1.5px solid var(--card-border);
+            border-radius: 14px;
+            padding: 2rem 1.5rem 1.5rem;
+            position: relative;
+            margin-top: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+        }
+
+        .step-badge {
+            width: 32px;
+            height: 32px;
+            background: var(--green-primary);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 2px 8px rgba(45,199,109,0.25);
+        }
+
+        .question-label {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .gender-icon {
+            font-size: 2.4rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Hide all radio inputs */
+        .hidden-radio {
+            display: none;
+        }
+
+        /* Gender labels as buttons */
+        .gender-label {
+            background: #fff;
+            border: 1.5px solid var(--card-border);
+            border-radius: 8px;
+            padding: 0.4rem 1.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            color: var(--text-dark);
+            transition: all 0.2s;
+            width: 110px;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .gender-label:hover {
+            border-color: var(--green-primary);
+            color: var(--green-primary);
+            background: var(--green-light);
+        }
+
+        .hidden-radio:checked + .gender-label {
+            border-color: var(--green-primary);
+            color: var(--green-primary);
+            background: var(--green-light);
+        }
+
+        /* Number inputs */
+        .num-input-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 0.8rem;
+        }
+
+        .num-input {
+            border: none;
+            border-bottom: 2px solid #ccc;
+            text-align: center;
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: #bbb;
+            width: 90px;
+            outline: none;
+            background: transparent;
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .num-input:focus {
+            border-bottom-color: var(--green-primary);
+            color: var(--text-dark);
+        }
+
+        .unit-label {
+            font-size: 0.9rem;
+            color: #aaa;
+            margin-left: 2px;
+        }
+
+        /* Unit toggle labels */
+        .unit-toggle-label {
+            border: 1.5px solid #d0f0e0;
+            background: #eafaf2;
+            border-radius: 6px;
+            padding: 0.2rem 0.8rem;
+            font-size: 0.82rem;
+            cursor: pointer;
+            color: var(--green-primary);
+            font-weight: 600;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+
+        .unit-toggle-label:hover {
+            background: var(--green-primary);
+            color: #fff;
+            border-color: var(--green-primary);
+        }
+
+        .hidden-radio:checked + .unit-toggle-label {
+            background: var(--green-primary);
+            color: #fff;
+            border-color: var(--green-primary);
+        }
+
+        /* Activity labels */
+        .activity-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fff;
+            border: 1.5px solid var(--card-border);
+            border-radius: 10px;
+            padding: 0.8rem 0.5rem 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+
+        .activity-label:hover {
+            border-color: var(--green-primary);
+            background: var(--green-light);
+        }
+
+        .hidden-radio:checked + .activity-label {
+            border-color: var(--green-primary);
+            background: var(--green-light);
+        }
+
+        .activity-label .act-label-text {
+            font-size: 0.78rem;
+            color: var(--green-primary);
+            font-weight: 600;
+        }
+
+        .activity-icon {
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        /* Submit button */
+        .calc-btn {
+            background: var(--green-primary);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.85rem 2.5rem;
+            font-size: 0.97rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            min-width: 280px;
+            letter-spacing: 0.3px;
+        }
+
+        .calc-btn:hover {
+            background: var(--green-dark);
+        }
+
+        .extra-field-label {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-    
-<form action="" method="post">
+<div class="container py-5">
 
-    {%csrf_token%}
-
-    <div>
-        <label for="">Enter your height</label>
-        <input name="height" type="number" placeholder="enter height in cm">
+    <div class="text-center mb-4">
+        <h1 class="page-title">Daily Calorie Intake Calculator</h1>
+        <p class="page-subtitle mt-2">
+            Feel free to enter your information below in the Daily Calorie Intake calculator to receive your
+            personal current daily calorie intake, and what your body needs to fuel itself during the day with your routine!
+        </p>
     </div>
 
-    <div>
-        <label for="">Enter your Weight</label>
-        <input name ="weight" type="number" placeholder="enter Weight in kg">
-    </div>
+    <form action="" method="post">
+        {%csrf_token%}
 
-    <div>
-        <label for="">Select gender</label>
-      <select name="gender" id="">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-    </div>
+        <div class="row g-4">
 
-    <div>
-        <label for="">Enter your Age</label>
-        <input name ="age" type="number" placeholder="enter Age">
-    </div>
+            <!-- Step 1: Sex -->
+            <div class="col-md-6">
+                <div class="question-card text-center">
+                    <div class="step-badge">1</div>
+                    <div class="question-label">What is your sex?</div>
+                    <div class="d-flex justify-content-center gap-3">
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="gender-icon">&#x1F9D1;</span>
+                            <input type="radio" name="gender" value="male" id="genderMale" class="hidden-radio" checked>
+                            <label for="genderMale" class="gender-label">Male</label>
+                        </div>
+                        <div class="d-flex flex-column align-items-center">
+                            <span class="gender-icon">&#x1F469;</span>
+                            <input type="radio" name="gender" value="female" id="genderFemale" class="hidden-radio">
+                            <label for="genderFemale" class="gender-label">Female</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <label for="">Select your activity level</label>
+            <!-- Step 2: Age -->
+            <div class="col-md-6">
+                <div class="question-card text-center">
+                    <div class="step-badge">2</div>
+                    <div class="question-label">How old are you?</div>
+                    <div class="num-input-wrapper">
+                        <input class="num-input" type="number" name="age" value="21" min="1" max="120" placeholder="21">
+                        <span class="unit-label">Years</span>
+                    </div>
+                </div>
+            </div>
 
-        <select name="activitylevel" id="">
-            <option value="1.2">sedentary</option>
-            <option value="1.375">Lightly Active</option>
-            <option value="1.55">Moderately  Active</option>
-            <option value="1.725">Very Active </option>
-            <option value="1.9">Extra Active </option>
-        </select>
-    </div>
+            <!-- Step 3: Height -->
+            <div class="col-md-6">
+                <div class="question-card text-center">
+                    <div class="step-badge">3</div>
+                    <div class="question-label">How tall are you?</div>
+                    <div class="num-input-wrapper">
+                        <input class="num-input" type="number" name="height" value="170" min="1" placeholder="170">
+                        <span class="unit-label">cm</span>
+                    </div>
+                    <div class="d-flex justify-content-center gap-2">
+                        <input type="radio" name="height_unit" value="cm" id="heightCm" class="hidden-radio" checked>
+                        <label for="heightCm" class="unit-toggle-label">cm</label>
+                        <input type="radio" name="height_unit" value="ft" id="heightFt" class="hidden-radio">
+                        <label for="heightFt" class="unit-toggle-label">ft/in</label>
+                    </div>
+                </div>
+            </div>
 
-     <div>
-        <label for="">GoalWeight</label>
-        <input name ="target" type="number" placeholder="enter goal weight">
-    </div>
+            <!-- Step 4: Weight -->
+            <div class="col-md-6">
+                <div class="question-card text-center">
+                    <div class="step-badge">4</div>
+                    <div class="question-label">How much do you weigh?</div>
+                    <div class="num-input-wrapper">
+                        <input class="num-input" type="number" name="weight" value="60" min="1" placeholder="60">
+                        <span class="unit-label">kg</span>
+                    </div>
+                    <div class="d-flex justify-content-center gap-2">
+                        <input type="radio" name="weight_unit" value="kg" id="weightKg" class="hidden-radio" checked>
+                        <label for="weightKg" class="unit-toggle-label">kg</label>
+                        <input type="radio" name="weight_unit" value="lb" id="weightLb" class="hidden-radio">
+                        <label for="weightLb" class="unit-toggle-label">lb</label>
+                    </div>
+                </div>
+            </div>
 
-     <div>
-        <label for="">Duration</label>
-        <input name ="duration" type="number" placeholder="enter diuration in months">
-    </div>
+            <!-- Step 5: Activity Level -->
+            <div class="col-12">
+                <div class="question-card text-center">
+                    <div class="step-badge">5</div>
+                    <div class="question-label">How active are you on a daily basis?</div>
+                    <div class="row g-2 justify-content-center">
+                        <div class="col-6 col-md-3">
+                            <input type="radio" name="activitylevel" value="1.375" id="actLight" class="hidden-radio">
+                            <label for="actLight" class="activity-label">
+                                <span class="activity-icon">&#x1FAA1;</span>
+                                <span class="act-label-text">Lightly active</span>
+                            </label>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <input type="radio" name="activitylevel" value="1.55" id="actMod" class="hidden-radio">
+                            <label for="actMod" class="activity-label">
+                                <span class="activity-icon">&#x1F9CD;</span>
+                                <span class="act-label-text">Moderately active</span>
+                            </label>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <input type="radio" name="activitylevel" value="1.725" id="actActive" class="hidden-radio">
+                            <label for="actActive" class="activity-label">
+                                <span class="activity-icon">&#x1F6B6;</span>
+                                <span class="act-label-text">Active</span>
+                            </label>
+                        </div>
+                        <div class="col-6 col-md-3">
+                            <input type="radio" name="activitylevel" value="1.9" id="actVery" class="hidden-radio">
+                            <label for="actVery" class="activity-label">
+                                <span class="activity-icon">&#x1F3CB;</span>
+                                <span class="act-label-text">Very Active</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <div>
-        <button type="submit">Find</button>
-    </div>
+            <!-- Step 6: Goal Weight & Duration -->
+            <div class="col-12">
+                <div class="question-card">
+                    <div class="step-badge">6</div>
+                    <div class="question-label">Your Goals</div>
+                    <div class="row g-4 justify-content-center">
+                        <div class="col-md-4 text-center">
+                            <span class="extra-field-label">Goal Weight</span>
+                            <div class="num-input-wrapper">
+                                <input class="num-input" type="number" name="target" placeholder="e.g. 70">
+                                <span class="unit-label">kg</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <span class="extra-field-label">Duration</span>
+                            <div class="num-input-wrapper">
+                                <input class="num-input" type="number" name="duration" placeholder="e.g. 3">
+                                <span class="unit-label">months</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    
+        </div>
 
+        <!-- Submit -->
+        <div class="text-center mt-4">
+            <button type="submit" class="calc-btn">Calculate your needed calorie intake</button>
+        </div>
 
-
-</form>
-
+    </form>
+</div>
 </body>
 </html>
