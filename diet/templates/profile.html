@@ -462,98 +462,27 @@
 
                     {% else %}
                         <!-- Placeholder shown before form is submitted -->
-                        <div class="day-block">
+
+                           {%if diet_plan%}
+
+                                {%for plan in diet_plan%}
+                                    <div class="day-block">
                             <div class="day-header">
                                 <div class="day-dot">1</div>
-                                <span class="day-name">Monday</span>
+                                <span class="day-name">{{plan.day}}</span>
                             </div>
                             <ul class="meal-list">
-                                <li>Breakfast: Puttu with kadala curry &amp; black tea</li>
-                                <li>Mid-morning: 1 banana &amp; a handful of roasted peanuts</li>
-                                <li>Lunch: Red rice, sambar, thoran, fish curry, buttermilk</li>
-                                <li>Evening: Pazham pori (banana fritter) &amp; black coffee</li>
-                                <li>Dinner: Kanji (rice porridge) with green gram curry</li>
+                               {%for m in p.meals%}
+                                     <li>{{m}}</li>
+                                
+                               {%endfor%}
                             </ul>
                         </div>
-                        <div class="day-block">
-                            <div class="day-header">
-                                <div class="day-dot">2</div>
-                                <span class="day-name">Tuesday</span>
-                            </div>
-                            <ul class="meal-list">
-                                <li>Breakfast: Idiyappam with coconut milk &amp; egg roast</li>
-                                <li>Mid-morning: Tender coconut water</li>
-                                <li>Lunch: Red rice, rasam, avial, papad, pickle</li>
-                                <li>Evening: Uzhunnu vada &amp; ginger tea</li>
-                                <li>Dinner: Chapathi with vegetable stew</li>
-                            </ul>
-                        </div>
-                        <div class="day-block">
-                            <div class="day-header">
-                                <div class="day-dot">3</div>
-                                <span class="day-name">Wednesday</span>
-                            </div>
-                            <ul class="meal-list">
-                                <li>Breakfast: Appam with vegetable ishtu</li>
-                                <li>Mid-morning: Guava or papaya slices</li>
-                                <li>Lunch: Red rice, fish moilee, cabbage thoran, buttermilk</li>
-                                <li>Evening: Roasted chana &amp; black tea</li>
-                                <li>Dinner: Wheat dosa with sambar</li>
-                            </ul>
-                        </div>
-                        <div class="day-block">
-                            <div class="day-header">
-                                <div class="day-dot">4</div>
-                                <span class="day-name">Thursday</span>
-                            </div>
-                            <ul class="meal-list">
-                                <li>Breakfast: Puttu with green gram curry</li>
-                                <li>Mid-morning: Buttermilk with curry leaves</li>
-                                <li>Lunch: Red rice, chicken curry, beans thoran, rasam</li>
-                                <li>Evening: Boiled tapioca with coconut chutney</li>
-                                <li>Dinner: Kanji with pappadam &amp; mango pickle</li>
-                            </ul>
-                        </div>
-                        <div class="day-block">
-                            <div class="day-header">
-                                <div class="day-dot">5</div>
-                                <span class="day-name">Friday</span>
-                            </div>
-                            <ul class="meal-list">
-                                <li>Breakfast: Idli with coconut chutney &amp; sambar</li>
-                                <li>Mid-morning: 1 orange or seasonal fruit</li>
-                                <li>Lunch: Red rice, fish curry, dal, beetroot thoran</li>
-                                <li>Evening: Banana chips &amp; black tea</li>
-                                <li>Dinner: Chapathi with egg bhurji</li>
-                            </ul>
-                        </div>
-                        <div class="day-block">
-                            <div class="day-header">
-                                <div class="day-dot">6</div>
-                                <span class="day-name">Saturday</span>
-                            </div>
-                            <ul class="meal-list">
-                                <li>Breakfast: Appam with prawn masala</li>
-                                <li>Mid-morning: Tender coconut water</li>
-                                <li>Lunch: Red rice, mutton curry, olan, papad</li>
-                                <li>Evening: Steamed sweet potato</li>
-                                <li>Dinner: Idiyappam with vegetable curry</li>
-                            </ul>
-                        </div>
-                        <div class="day-block">
-                            <div class="day-header">
-                                <div class="day-dot">7</div>
-                                <span class="day-name">Sunday</span>
-                            </div>
-                            <ul class="meal-list">
-                                <li>Breakfast: Puttu with banana &amp; ghee</li>
-                                <li>Mid-morning: Papaya &amp; lime juice</li>
-                                <li>Lunch: Sadhya — red rice, sambar, avial, thoran, pachadi, payasam</li>
-                                <li>Evening: Sukhiyan &amp; black tea</li>
-                                <li>Dinner: Light kanji with green gram</li>
-                            </ul>
-                        </div>
+                                {%endfor%}
+                           
+                           {%endif%}
 
+                       
                     {% endif %}
 
                 </div><!-- /diet-panel-body -->

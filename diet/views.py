@@ -41,7 +41,8 @@ class DietPlanView(View):
       
         print(diet_plan)
         context={
-            "tdee":tdee
+            "tdee":tdee,
+            "diet_plan":diet_plan.get("diet_plan")
         }
         return render(request,"profile.html",context)
 
@@ -72,7 +73,7 @@ from google.genai import types
 def generate_kerala_diet_plan(goal="weight loss",age =None,weight=None,gender="male",target_weight=None,duration=None):
     
     # Initialize the new Client
-    client = genai.Client(api_key="your api key")
+    client = genai.Client(api_key="api key")
     
     # Extract user
    
@@ -168,3 +169,10 @@ def generate_kerala_diet_plan(goal="weight loss",age =None,weight=None,gender="m
 
 
 # print(generate_kerala_diet_plan(goal="weight loss",age=19,gender="male",target_weight=80,duration=4))
+
+
+
+"""
+ 'diet_plan': [{'day': 'Monday', 'meals': ['Breakfast: Puttu (3-4 pieces) with Kadala Curry (chickpea curry with coconut milk), 1 large Nendran banana, 1 glass full-fat milk.', 'Mid-morning: Nendran banana milkshake (1 large banana, 200ml milk, 1 tbsp jaggery/honey, few cashews).', 'Lunch: 2.5 cups Brown/White Rice, Fish Curry (2-3 pieces, prepared with coconut milk/oil), Cabbage Thoran, 1 cup Sambar, 1 cup Buttermilk.', 'Evening Snack: Pazham Pori (2 banana fritters), 1 glass Tea with milk.', 'Dinner: 4 Chappathi, Chicken Curry (2-3 pieces, prepared with coconut), Dal Curry, Avial.', 'Before bed: 1 glass warm milk with 2-3 dates.']}
+
+"""
