@@ -66,7 +66,7 @@ from google.genai import types
 def generate_kerala_diet_plan(goal="weight loss",age =None,weight=None,gender="male",target_weight=None,duration=None):
     
     # Initialize the new Client
-    client = genai.Client(api_key="AIzaSyB7f6rAt3g2sQ_KDiD_wFvdmYWBZIXgTKU")
+    client = genai.Client(api_key="your api key")
     
     # Extract user
    
@@ -159,7 +159,6 @@ def generate_kerala_diet_plan(goal="weight loss",age =None,weight=None,gender="m
 #         data = json.loads(result)
 
 
-GOOGLE_API_KEY="AIzaSyB7f6rAt3g2sQ_KDiD_wFvdmYWBZIXgTKU"
 
 
 print(generate_kerala_diet_plan(goal="weight loss",age=19,gender="male",target_weight=80,duration=4))
