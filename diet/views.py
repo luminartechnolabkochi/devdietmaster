@@ -30,10 +30,16 @@ class DietPlanView(View):
 
         print(height_in_cm,weight_in_kg,gender,age,activitylevel,duration,target)
 
+
         tdee=daily_calorie_consumption(gender=gender,weight=weight_in_kg,height=height_in_cm,age=age,activitylevel=activitylevel)
 
         print("TDEE",tdee)
 
+        goal = "weight loss" if weight_in_kg > target else "weight gain"
+
+        diet_plan=generate_kerala_diet_plan(goal=goal,age=age,weight=weight_in_kg,gender=gender,target_weight=target,duration=duration)
+      
+        print(diet_plan)
         context={
             "tdee":tdee
         }
@@ -161,4 +167,4 @@ def generate_kerala_diet_plan(goal="weight loss",age =None,weight=None,gender="m
 
 
 
-print(generate_kerala_diet_plan(goal="weight loss",age=19,gender="male",target_weight=80,duration=4))
+# print(generate_kerala_diet_plan(goal="weight loss",age=19,gender="male",target_weight=80,duration=4))
