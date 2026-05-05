@@ -59,6 +59,3 @@ def daily_calorie_consumption(gender="male",weight=None,height=None,age=None,act
 
     
 
-
-
-
